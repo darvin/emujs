@@ -5,6 +5,21 @@ angular.module( 'p2pService', [])
       COMMAND_KNOWN_PEERS = "known";
   var p2pService = {
     createClient:function(clientId, opts) {
+      var defaultOpts = {
+        onConnected: function(peerId) {
+          console.log("connected to peer: "+peerId);
+        },
+        onReceived: function(peerId, data) {
+          console.log("received from peer "+peerId+ " :"+data);
+        }
+      };
+
+      angular.forEach(defaultOpts, function(value, key) {
+        if (!opts[key]) {
+          opts[key] = value;
+        }
+      });
+
       var peer = new Peer(clientId, 
         {
         key: 'qbxxtma1ws7qr529',
@@ -33,8 +48,13 @@ angular.module( 'p2pService', [])
 
       var connect = function(peerId) {
         var conn = peer.connect(peerId);
-        conn.on('data', onReceived);
+        conn.on('data', onReceivedForConn(conn));
         connections[peerId] = conn;
+        conn.on("open", function(){
+          opts.onConnected(conn.peer);
+
+        });
+
       };  
       var connectToUnknownPeers = function(knownPeers) {
         angular.forEach(knownPeers, function(peerId){
@@ -53,18 +73,21 @@ angular.module( 'p2pService', [])
             break;
         }
       };
-      var onReceived = function(data) {
-        if (data instanceof Array && data[0]==COMMAND_PREFIX) {
-          processCommand(data[1], data[2]);
-        } else{
-          opts.onReceived(data);
+      var onReceivedForConn = function(conn){
+        return function(data) {
+          if (data instanceof Array && data[0]==COMMAND_PREFIX) {
+            processCommand(data[1], data[2]);
+          } else{
+            opts.onReceived(conn.peer, data);
 
-        }
+          }
+        };
+
       };
 
       peer.on('connection', function(conn) {
         connections[conn.peer] = conn;
-        conn.on('data', onReceived);
+        conn.on('data', onReceivedForConn(conn));
 
         opts.onConnected(conn.peer);
         lazySend(conn, [COMMAND_PREFIX, COMMAND_KNOWN_PEERS, getKnownPeersForConn(conn)]);
