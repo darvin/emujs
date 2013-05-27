@@ -8,3 +8,4 @@ vendor/bootstrap/
 vendor/angular/
 vendor/angular-ui-utils/
 vendor/peerjs/
+*.log
