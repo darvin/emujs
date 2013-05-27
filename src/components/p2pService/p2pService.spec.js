@@ -90,6 +90,9 @@ describe( 'p2pService', function() {
     runs(function(){  
       expect(onReceived1).toHaveBeenCalledWith(["dataFromPeer2"]);
       expect(onReceived1.callCount).toBe(1);
+      expect(onReceived3).toHaveBeenCalledWith(["dataFromPeer2"]);
+      expect(onReceived3.callCount).toBe(1);
+
 
     });
 
