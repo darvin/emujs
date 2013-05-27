@@ -47,6 +47,29 @@ angular.module( 'ngBoilerplate.home', [
     $scope.userId = "somenew userId";
 
   }
+  
+
+  $scope.chat = {
+    messages:[],
+    messageText:"",
+    addMessage:function(){
+      console.log("message: "+$scope.chat.messageText);
+    }
+  };
+  $scope.chat.messages = [
+    {
+      user:"someone",
+      text:"hi"
+    },
+    {
+      user:"someone2",
+      text:"hi"
+    },
+    {
+      user:"someone",
+      text:"hi"
+    }
+  ];
 })
 
 ;

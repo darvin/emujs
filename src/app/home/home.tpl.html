@@ -11,3 +11,16 @@ game here
 
 </div>
 
+
+<div class="chat-box">
+  <div class="messages">
+    <div ng-repeat="message in chat.messages">
+      <em>{{message.user}}: {{message.text}}</em>
+    </div>
+  </div>
+  <form ng-submit="chat.addMessage()">
+    <input type='text' placeholder='Message' ng-model="chat.messageText"/>
+    <input type="submit" id="submit" value="Send"/>
+  </form>
+</div>
+

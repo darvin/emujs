@@ -15,7 +15,8 @@ files = [
   'dist/tmp/**/*.js',
   'vendor/placeholders/*.js',
   'vendor/angular-bootstrap/*.js',
-  'vendor/angular-ui-utils/modules/route/*.js'
+  'vendor/angular-ui-utils/modules/route/*.js',
+  'vendor/peerjs/dist/peer.js'
 ];
 
 /**
