@@ -7,8 +7,43 @@
 describe( 'home section', function() {
   beforeEach( module( 'ngBoilerplate.home' ) );
 
-  it( 'should have a dummy test', inject( function() {
-    expect( true ).toBeTruthy();
-  }));
+
+  describe( 'HomeCtrl hosting', function() {
+    var ctrl, $location, $scope;
+    beforeEach( inject( function( $controller, $rootScope ) {
+      $scope = $rootScope.$new();
+      ctrl = $controller( 'HomeCtrl', { $scope: $scope });
+    }));
+
+
+    it("should be initialized properly", inject(function() {
+ 
+      expect( $scope.hostUserId).toBeTruthy();
+      expect($scope.hostUserId).toEqual($scope.userId);
+
+    }));
+
+  });
+
+  describe( 'HomeCtrl connected', function() {
+    var ctrl, $location, $scope;
+    beforeEach( inject( function( $controller, $rootScope ) {
+      $scope = $rootScope.$new();
+      var $routeParams ={
+        userId:"HostingUserId"
+      };
+      ctrl = $controller( 'HomeCtrl', { $scope: $scope, $routeParams:$routeParams });
+    }));
+
+
+    it("should be initialized properly", inject(function() {
+ 
+      expect( $scope.hostUserId).toBeTruthy();
+      expect($scope.hostUserId).not.toEqual($scope.userId);
+
+    }));
+
+  });
+
 });
 

@@ -11,7 +11,7 @@ angular.module( 'ngBoilerplate', [
 })
 
 .run( function run ( titleService ) {
-  titleService.setSuffix( ' | ngBoilerplate' );
+  titleService.setSuffix( ' | EmuJS' );
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {

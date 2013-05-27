@@ -23,17 +23,30 @@ angular.module( 'ngBoilerplate.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config( $routeProvider ) {
-  $routeProvider.when( '/home', {
+  var homeRoute = {
     controller: 'HomeCtrl',
     templateUrl: 'home/home.tpl.html'
-  });
+  };
+  $routeProvider.when( '/home', homeRoute);
+
+  $routeProvider.when( '/home/:userId', homeRoute);
 })
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, titleService ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $location, $routeParams, titleService ) {
   titleService.setTitle( 'Home' );
+  $scope.location = $location.absUrl();
+  if (!$routeParams.userId) {
+    $scope.hostUserId = "someUserId"; 
+    $scope.userId = "someUserId"; 
+
+  } else {
+    $scope.hostUserId = $routeParams.userId; 
+    $scope.userId = "somenew userId";
+
+  }
 })
 
 ;
