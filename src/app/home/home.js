@@ -69,7 +69,7 @@ angular.module( 'ngBoilerplate.home', [
       console.log("Connected: "+userId);
     }
   });
-  if (!$scope.isHost) {
+  if (!$scope.isHost && $scope.hostUserId) {
     p2pClient.connect($scope.hostUserId);
   }
 

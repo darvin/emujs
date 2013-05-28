@@ -1,7 +1,7 @@
 /** 
  * From where to look for files, starting with the location of this file.
  */
-basePath = '../';
+basePath = './';
 
 /**
  * This is the list of file patterns to load into the browser during testing.
@@ -56,6 +56,6 @@ autoWatch = false;
  * the aesthetic advantage of not launching a browser every time you save.
  */
 browsers = [
-  'Firefox'
+  'Chrome'
 ];
 

@@ -261,7 +261,7 @@ module.exports = function ( grunt ) {
      */
     karma: {
       options: {
-        configFile: 'karma/karma-unit.js'
+        configFile: 'karma.conf.js'
       },
       unit: {
         background: true
