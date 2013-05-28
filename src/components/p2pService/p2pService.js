@@ -3,7 +3,9 @@ angular.module( 'p2pService', [])
 .factory( 'p2pService', function (  ) {
   var COMMAND_PREFIX = "_com",
       COMMAND_KNOWN_PEERS = "known";
+  var client = null;
   var p2pService = {
+    client: client,
     createClient:function(clientId, opts) {
       var defaultOpts = {
         onConnected: function(peerId) {
@@ -108,7 +110,7 @@ angular.module( 'p2pService', [])
 
       });
 
-      return {
+      client = {
         connect: connect,
         send: function(data) {
           angular.forEach(connections, function(conn, peerId){
@@ -116,6 +118,7 @@ angular.module( 'p2pService', [])
           });
         }
       };
+      return client;
 
 
     }

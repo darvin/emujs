@@ -42,9 +42,18 @@ angular.module( 'ngBoilerplate.home', [
  * And of course we define a controller for our route.
  */
 .controller( 'HomeCtrl', function HomeController( $scope, $location, $routeParams, titleService, p2pService, idService ) {
-  titleService.setTitle( 'Home' );
   $scope.userId = idService.id; 
+
   if (!$routeParams.hostUserId) {
+    //hack creating the game!
+    $location.path('/home/'+$scope.userId);
+    $scope.isHost = true;
+    $scope.hostUserId = null; 
+    return;
+  }
+
+  titleService.setTitle( 'Home' );
+  if ($routeParams.hostUserId==$scope.userId)  {
     $scope.hostUserId = null; 
     $scope.isHost = true;
 
@@ -53,27 +62,28 @@ angular.module( 'ngBoilerplate.home', [
     $scope.isHost = false;
   }
 
-  $scope.location = $scope.hostUserId;
-        //$location.absUrl();
-
+  $scope.location = $location.absUrl();
 
   $scope.chat = {
     messages:[],
     messageText:""
 
   };
-
-
-  var p2pClient = p2pService.createClient($scope.userId, {
-    onReceived: function(userId, data) {
-      $scope.chat.messages.push({user:userId, text:data});
-    },
-    onConnected: function(userId) {
-      console.log("Connected: "+userId);
+  console.error("creating client1");
+  var p2pClient = p2pService.client;
+  if (!p2pClient) {
+    console.error("creating client2");
+    p2pClient = p2pService.createClient($scope.userId, {
+      onReceived: function(userId, data) {
+        $scope.chat.messages.push({user:userId, text:data});
+      },
+      onConnected: function(userId) {
+        console.log("Connected: "+userId);
+      }
+    });
+    if (!$scope.isHost && $scope.hostUserId) {
+      p2pClient.connect($scope.hostUserId);
     }
-  });
-  if (!$scope.isHost && $scope.hostUserId) {
-    p2pClient.connect($scope.hostUserId);
   }
 
   $scope.chat.addMessage = function() {
