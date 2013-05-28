@@ -24,7 +24,8 @@ angular.module( 'p2pService', [])
         {
         key: 'qbxxtma1ws7qr529',
         host:"0.peerjs.com",
-        port:"9000"
+        port:"9000",
+        debug:true
       }
         /*{host: 'localhost', port: 9000}*/
       );

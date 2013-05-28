@@ -76,8 +76,8 @@ describe( 'p2pService', function() {
       expect(onConnected2).toHaveBeenCalledWith("groupPeer1");
       expect(onConnected2).toHaveBeenCalledWith("groupPeer3");
 
-      expect(onConnected3).toHaveBeenCalledWith("groupPeer1");
       expect(onConnected3).toHaveBeenCalledWith("groupPeer2");
+      expect(onConnected3).toHaveBeenCalledWith("groupPeer1");
 
 
       peer1.send({some:"dataFromPeer1"});
