@@ -18,8 +18,9 @@ describe( 'home section', function() {
 
     it("should be initialized properly", inject(function() {
  
-      expect( $scope.hostUserId).toBeTruthy();
-      expect($scope.hostUserId).toEqual($scope.userId);
+      expect($scope.userId).toBeTruthy();
+      expect($scope.isHost).toBe(true);
+      expect($scope.hostUserId).toBe(null);
 
     }));
 
@@ -30,7 +31,7 @@ describe( 'home section', function() {
     beforeEach( inject( function( $controller, $rootScope ) {
       $scope = $rootScope.$new();
       var $routeParams ={
-        userId:"HostingUserId"
+        hostUserId:"HostingUserId"
       };
       ctrl = $controller( 'HomeCtrl', { $scope: $scope, $routeParams:$routeParams });
     }));
@@ -38,8 +39,9 @@ describe( 'home section', function() {
 
     it("should be initialized properly", inject(function() {
  
-      expect( $scope.hostUserId).toBeTruthy();
+      expect( $scope.hostUserId).toBe("HostingUserId");
       expect($scope.hostUserId).not.toEqual($scope.userId);
+      expect($scope.isHost).toBe(false);
 
     }));
 

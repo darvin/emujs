@@ -6,6 +6,7 @@
     "angular-bootstrap": "~0.3.0",
     "angular-ui-utils": "~0.0.1",
     "peerjs": "git://github.com/peers/peerjs.git",
-    "angular-placeholders": "latest"
+    "angular-placeholders": "latest",
+    "fantasyname": "git://github.com/darvin/fantasyname.git"
   }
 }

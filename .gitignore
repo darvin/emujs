@@ -8,4 +8,6 @@ vendor/bootstrap/
 vendor/angular/
 vendor/angular-ui-utils/
 vendor/peerjs/
+vendor/angular-placeholders/
+vendor/fantasyname/
 *.log

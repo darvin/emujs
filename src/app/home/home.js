@@ -15,8 +15,13 @@
 angular.module( 'ngBoilerplate.home', [
   'titleService',
   'p2pService',
-  'plusOne'
+  'plusOne',
+  'idService'
 ])
+
+
+
+
 
 /**
  * Each section or module of the site can also have its own routes. AngularJS
@@ -30,24 +35,22 @@ angular.module( 'ngBoilerplate.home', [
   };
   $routeProvider.when( '/home', homeRoute);
 
-  $routeProvider.when( '/home/:userId', homeRoute);
+  $routeProvider.when( '/home/:hostUserId', homeRoute);
 })
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, $location, $routeParams, titleService, p2pService ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $location, $routeParams, titleService, p2pService, idService ) {
   titleService.setTitle( 'Home' );
-  if (!$routeParams.userId) {
-    $scope.hostUserId = "someUserId"; 
-    $scope.userId = "someUserId"; 
+  $scope.userId = idService.id; 
+  if (!$routeParams.hostUserId) {
+    $scope.hostUserId = null; 
     $scope.isHost = true;
 
   } else {
-    $scope.hostUserId = $routeParams.userId; 
-    $scope.userId = "newUserId";
+    $scope.hostUserId = $routeParams.hostUserId; 
     $scope.isHost = false;
-
   }
 
   $scope.location = $scope.hostUserId;

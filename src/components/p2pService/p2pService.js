@@ -24,8 +24,8 @@ angular.module( 'p2pService', [])
         {
         key: 'qbxxtma1ws7qr529',
         host:"0.peerjs.com",
-        port:"9000",
-        debug:true
+        port:"9000"
+        // ,debug:true
       }
         /*{host: 'localhost', port: 9000}*/
       );
@@ -46,15 +46,28 @@ angular.module( 'p2pService', [])
       var getKnownPeersForConn = function(conn) {
         return Object.keys(connections).filter(function(peerId){return conn.peer!=peerId;});
       };
-
-      var connect = function(peerId) {
+      var connectImmidiately = function(peerId) {
         var conn = peer.connect(peerId);
+
         conn.on('data', onReceivedForConn(conn));
         connections[peerId] = conn;
         conn.on("open", function(){
           opts.onConnected(conn.peer);
 
         });
+      };
+      var connect = function(peerId) {
+        if (peer.disconnected) {
+          var connectOnOpen = function() {
+            connectImmidiately(peerId);
+            peer.off("open", connectOnOpen);
+          };
+          peer.on("open", connectOnOpen);
+
+        } else {
+          connectImmidiately(peerId);
+        }
+        
 
       };  
       var connectToUnknownPeers = function(knownPeers) {

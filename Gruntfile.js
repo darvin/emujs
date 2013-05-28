@@ -86,7 +86,8 @@ module.exports = function ( grunt ) {
         'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
         'vendor/angular-ui-utils/modules/route/route.js',
-        'vendor/peerjs/dist/peer.js'
+        'vendor/peerjs/dist/peer.js',
+        'vendor/fantasyname/js/namegen.js'
       ]
     },
 
@@ -390,7 +391,7 @@ module.exports = function ( grunt ) {
    * A task to build the project, without some of the slower processes. This is
    * used during development and testing and is part of the `watch`.
    */
-  grunt.registerTask( 'quick-build', ['clean', 'html2js', 'jshint', 'test', 'concat', 'recess', 'index', 'copy'] );
+  grunt.registerTask( 'quick-build', ['clean', 'html2js', 'jshint', 'concat', 'recess', 'index', 'copy'] );
 
   /** 
    * The index.html template includes the stylesheet and javascript sources
