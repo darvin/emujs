@@ -75,7 +75,9 @@ angular.module( 'ngBoilerplate.home', [
     console.error("creating client2");
     p2pClient = p2pService.createClient($scope.userId, {
       onReceived: function(userId, data) {
-        $scope.chat.messages.push({user:userId, text:data});
+        $scope.$apply(function() {
+          $scope.chat.messages.push({user:userId, text:data});
+        });
       },
       onConnected: function(userId) {
         console.log("Connected: "+userId);
@@ -88,6 +90,8 @@ angular.module( 'ngBoilerplate.home', [
 
   $scope.chat.addMessage = function() {
     p2pClient.send($scope.chat.messageText);
+    $scope.chat.messages.push({user:$scope.userId, text:$scope.chat.messageText});
+
   };
   
 
